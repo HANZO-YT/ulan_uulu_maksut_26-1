@@ -16,20 +16,22 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from products.views import hello, goodbye, now_date, main_view, products_view, products_detail_view, product_create_view
+from django.urls import path, include
+from products.views import HelloCBV, GoodbyeCBV, DateNowCBV, MainCBV, ProductDetailCBV, CreateProductCBV
 from users.views import register_view, login_view, logout_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', hello),
-    path('goodby/', goodbye),
-    path('now_date/', now_date),
-    path('', main_view),
-    path('products/', products_view),
-    path('products/<int:id>/', products_detail_view),
-    path('products/create/', product_create_view),
-
+    path('hello/', HelloCBV.as_view()),
+    path('goodby/', GoodbyeCBV.as_view()),
+    path('now_date/', DateNowCBV.as_view()),
+    path('', MainCBV.as_view()),
+    path('products/', ProductsCBV()),
+    path('products/<int:id>/', ProductDetailCBV.as_view()),
+    path('products/create/', CreateProductCBV.as_view()),
     path('users/register/', register_view),
     path('users/login/', login_view),
     path('users/logout/', logout_view)
+    path('', include('products.urls')),
+    path('users/', include('users.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
