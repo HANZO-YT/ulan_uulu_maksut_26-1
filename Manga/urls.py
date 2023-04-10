@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from products.views import HelloCBV, GoodbyeCBV, DateNowCBV, MainCBV, ProductDetailCBV, CreateProductCBV
-from users.views import register_view, login_view, logout_view
+from users.views import RegisterCBV, LoginCBV, LogoutCBV
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,9 +29,9 @@ urlpatterns = [
     path('products/', ProductsCBV()),
     path('products/<int:id>/', ProductDetailCBV.as_view()),
     path('products/create/', CreateProductCBV.as_view()),
-    path('users/register/', register_view),
-    path('users/login/', login_view),
-    path('users/logout/', logout_view)
+    path('users/register/', RegisterCBV),
+    path('users/login/', LoginCBV),
+    path('users/logout/', LogoutCBV),
     path('', include('products.urls')),
     path('users/', include('users.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
