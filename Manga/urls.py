@@ -17,21 +17,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from products.views import HelloCBV, GoodbyeCBV, DateNowCBV, MainCBV, ProductDetailCBV, CreateProductCBV
-from users.views import RegisterCBV, LoginCBV, LogoutCBV
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', HelloCBV.as_view()),
-    path('goodby/', GoodbyeCBV.as_view()),
-    path('now_date/', DateNowCBV.as_view()),
-    path('', MainCBV.as_view()),
-    path('products/', ProductsCBV()),
-    path('products/<int:id>/', ProductDetailCBV.as_view()),
-    path('products/create/', CreateProductCBV.as_view()),
-    path('users/register/', RegisterCBV),
-    path('users/login/', LoginCBV),
-    path('users/logout/', LogoutCBV),
     path('', include('products.urls')),
     path('users/', include('users.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
